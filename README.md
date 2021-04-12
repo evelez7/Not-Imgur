@@ -8,20 +8,19 @@ Please follow the instructions below and fill in the information requested when 
 
 ## Student Information
 
-|               | Information   |
-|:-------------:|:-------------:|
-| Student Name  | name-here     |
-| Student ID    | id-here       |
-| Student Email | email-here    |
+|               | Information           |
+|:-------------:|:---------------------:|
+| Student Name  | Erick Velez           |
+| Student ID    | 917148120             |
+| Student Email | evelez1@mail.sfsu.edu |
 
 
 
 # Build/Run Instructions
 
 ## Build Instructions
-1. steps here
-2. steps here
+There are currently no required commands to build the project.
 
 ## Run Instructions
-1. steps here
-2. steps here 
+1. `npm start`
+2. Navigate to the project url (http://127.0.0.1:3000/)
