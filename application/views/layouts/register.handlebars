@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <script type="text/javascript" src="public/js/registration.js"></script>
   <link rel="stylesheet" type="text/css" href="public/css/common.css">
@@ -12,23 +13,26 @@
   {{> navbar }}
 
   <div class="form_box" class="centered_button">
-    <form id="registration_form" onsubmit="event.preventDefault(); registration_submit(event)">
+    <form name="registration_form" method="post" action="register/submit" id="registration_form" onsubmit="event.preventDefault(); registration_submit(event)">
       <h3>Registration</h3>
       <div class="form_inputs">
         <label class="input_label">User name</label><br>
-        <input class="input_field" placeholder="Enter Username..." type="text" value="" id="username"><br>
+        <input class="input_field" name="username" placeholder="Enter Username..." type="text" value="" id="username"><br>
 
-        <label class="input_label">User name</label><br>
-        <input class="input_field" placeholder="Enter email..." type="email" value="" id="email"><br>
+        <label class="input_label">E-mail</label><br>
+        <input class="input_field" name="email" placeholder="Enter email..." type="email" value="" id="email"><br>
 
         <label class="input_label">Password</label><br>
-        <input class="input_field" placeholder="Enter Password..." type="password" id="password"
-          onkeyup="validate_password_inline();"><br>
+        <input class="input_field" name="password" placeholder="Enter Password..." type="password" id="password"
+          onkeyup="validate_credentials();"><br>
 
         <label class="input_label">Confirm Password</label><br>
         <input class="input_field" placeholder="Confirm Passowrd..." type="password" id="confirm_password"
-          onkeyup="validate_password_inline();"><br>
-        <span id="valid_password_message"></span>
+          onkeyup="validate_credentials();"><br>
+        <span id="valid_password_message">
+        </span>
+        {{!-- <br>
+        <span>valid</span> --}}
 
         <br>
         <label class="input_label" for="ageReq">I confirm I am 13 years or older.</label>

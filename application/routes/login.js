@@ -7,4 +7,13 @@ router.get('/', function(req, res, next) {
   res.render('main', {layout: 'login'});
 });
 
+router.post('/', function(req, res, next) {
+  res.redirect(302, '/');
+});
+
+router.post('/submit', function(req, res, next) {
+  console.log("hello");
+  res.redirect(302, '/');
+});
+
 module.exports = router;

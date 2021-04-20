@@ -8,7 +8,7 @@ const port = 3000;
 
 const index_router = require('./routes/index'),
   post_image_router = require('./routes/post_image'),
-  registration_router = require('./routes/registration'),
+  registration_router = require('./routes/register'),
   image_post_router = require('./routes/image_post'),
   login_router = require('./routes/login');
 
@@ -22,7 +22,7 @@ app.use("/public", express.static(path.join(__dirname, 'public')));
 
 app.use('/', index_router);
 app.use('/post_image', post_image_router);
-app.use('/registration', registration_router);
+app.use('/register', registration_router);
 app.use('/image_post', image_post_router);
 app.use('/login', login_router);
 
