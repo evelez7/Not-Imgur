@@ -22,5 +22,6 @@ Please follow the instructions below and fill in the information requested when 
 There are currently no required commands to build the project.
 
 ## Run Instructions
-1. `npm start`
-2. Navigate to the project url (http://127.0.0.1:3000/)
+1. Navigate to application source (in the repository, 'cd application') through the command line
+2. Run the command 'npm start'
+3. Navigate to the project url (http://127.0.0.1:3000/)
