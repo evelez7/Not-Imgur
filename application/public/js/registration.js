@@ -31,24 +31,14 @@ function validate_credentials()
   }
 }
 
+/**
+ * Function is called when registration form is submitted
+ */
 function registration_submit(event)
 {
-  if (valid_password)
+  // valid_password is set in validate_credentials
+  if (!valid_password)
   {
-    console.log("it works");
-    location.replace('/register/submit');
-    // fetch("localhost:3001/register/submit", {
-    //   method: "POST",
-    //   redirect: "follow"
-    // })
-    // .then(response => {
-
-    // })
-    // .catch(function(err) {
-    //   console.log('idk');
-    // });
-  } else
-  {
-    console.log("not valid");
+    event.preventDefault();
   }
 }
