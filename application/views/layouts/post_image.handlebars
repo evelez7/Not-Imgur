@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="public/css/common.css">
+        <title>
+            Post Image Page
+        </title>
+    </head>
+    <body id="post_page">
+      {{> navbar }}
+    <form class="form_box">
+        <h3>Posting</h3>
+        <div class="form_inputs">
+
+            <label>Please input a title</label>
+            <input placeholder="Title..." class="input_field" type="text"><br>
+
+            <label>Please input a description.</label>
+            <input placeholder="Description..." class="input_field" type="text"><br>
+
+            <label>Please select a file to upload.</label>
+            <input type="file" id="imageInput" name="imageInput" accept="image/*"><br>
+
+            <label for="tos">I agree to the Acceptable Use Policy for media.</label>
+            <input type="checkbox" id="tos" name="tos"><br>
+        </div>
+            <input type="submit" class="submit" value="submit">
+    </form>
+    </body>
+</html>
