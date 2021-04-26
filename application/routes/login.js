@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+let users = require('../controllers/user.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -11,8 +12,7 @@ router.post('/', function(req, res, next) {
   res.redirect(302, '/');
 });
 
-router.post('/submit', function(req, res, next) {
-  console.log("hello");
+router.post('/submit', users.login, (req, res, next) => {
   res.redirect(302, '/');
 });
 
