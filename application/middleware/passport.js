@@ -30,7 +30,7 @@ passport.use(new passport_local.Strategy(
 }));
 
 passport.serializeUser( (user, callback) => {
-  callback(null, user.id);
+  callback(null, user.username);
 });
 
 passport.deserializeUser( (username, callback) => {

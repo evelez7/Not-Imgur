@@ -15,6 +15,7 @@ let app = express();
 // intialize utilities
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(require('express-session')({ secret: 'csc317', resave: false, saveUninitialized: false})); // having the secret in plaintext is necessary
 app.use(logger('dev'));
 // declare json parsers BEFORE router intializaers
 // or else results in req.body undefined values
