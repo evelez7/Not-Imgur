@@ -36,7 +36,8 @@ const index_router = require('./routes/index'),
   post_image_router = require('./routes/post_image'),
   registration_router = require('./routes/register'),
   image_post_router = require('./routes/image_post'),
-  login_router = require('./routes/login');
+  login_router = require('./routes/login'),
+  logout_router = require('./routes/logout');
 
 // initialize endpoints
 app.use('/', index_router);
@@ -44,6 +45,7 @@ app.use('/post_image', post_image_router);
 app.use('/register', registration_router);
 app.use('/image_post', image_post_router);
 app.use('/login', login_router);
+app.use('/logout', logout_router);
 
 // initialize template engine`
 app.set('view engine', 'handlebars');

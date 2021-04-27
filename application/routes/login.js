@@ -6,7 +6,7 @@ const passport = require("../middleware/passport.js");
 router.get('/', function(req, res, next) {
   if (req.user) { res.redirect(302, '/') };
   res.render('main', {
-    layout: 'login'
+    layout: 'login',
   });
 });
 
