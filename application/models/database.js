@@ -3,9 +3,9 @@ const mysql = require('mysql');
 
 const db_connection = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
+    user: 'photoapp',
     password: '',
-    database: 'csc317',
+    database: 'csc317db',
     waitForConnections: true,
     connectionLimit: 15,
     queueLimit: 0
