@@ -27,12 +27,17 @@ passport.use(new passport_local.Strategy(
     passReqToCallback: true
   },
   (req, username, password, done) => {
-  users.fetch(username, (err, user) => {
-    if (err) { return done(err) };
-    if (!user) { return done(null, false, {message: "incorrect username"}); }
-    if (user.password != password) { return done(null, false, {message: "Incorrect Password"}); }
-    return done(null, user);
-  });
+    users.fetch(username, (err, user) => {
+      if (err) { return done(err) }; // fail if error exists
+      if (!user) { return done(null, false, {message: "incorrect username"}); } // fail if user was unable to be found
+
+      if (user.password != password)
+      {
+        return done(null, false, {message: "Incorrect Password"}); // fail if passwords dont match
+      }
+
+      return done(null, user);
+    });
 }));
 
 passport.serializeUser( (user, done) => {

@@ -14,14 +14,13 @@ module.exports = {
    *
    * If successful, Passport will create a new session
    */
-  register : function (username, email, password, callback)
+  register : function (req, res, next)
   {
     // user table is of the form USER PW EMAIL
-    db.query('INSERT INTO users SET ?', {username : username, password: password, email: email}, (err, result) => {
+    db.query('INSERT INTO users SET ?', {username : req.body.username, password: req.body.password, email: req.body.email}, (err, result) => {
       if (err)
       {
         console.log("ERROR: User registration");
-        return
       }
     });
     next();
@@ -55,12 +54,4 @@ module.exports = {
       return done(null, result[0]);
     });
   }
-  // login: function(req, res, next)
-  // {
-  //   db.query('SELECT * from users WHERE username = ?', req.body.username, (err, result) => {
-  //     if (err) { return callback(null, null) };
-
-  //     console.log(result[0].username);
-  //   });
-  // }
 }
