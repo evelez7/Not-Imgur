@@ -10,3 +10,9 @@ Database name: csc317db
 Database user: photoapp
 
 Database password:
+
+## DATABASE TESTING
+The data dump adds users, the following is a user that can be logged into for testing:
+
+Username: erick
+Password: P@ssword1
