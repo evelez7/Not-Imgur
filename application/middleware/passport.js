@@ -11,32 +11,37 @@
  */
 
 const passport = require("passport");
-const passport_local = require("passport-local");
+let passport_local = require("passport-local");
 const users = require("../controllers/user.js");
 
 /**
  * Configure passport to use the default local strategy.
  *
- * Must pass name 'local' to passport.authenticate when user logs in
+ * A verify callback must be specified as an argument to the Strategy
+ * Must pass name 'local' to passport.authenticate
+ *
+ * NOTE: authentication currently does not require, or take into consideration, email
  */
 passport.use(new passport_local.Strategy(
-  (username, password, callback) => {
-    users.login(username, (error, user) => {
-      if (error) { return callback(error); }
-      if (!user) { return callback(null, false); }
-      if (user.password != password) { return callback(null, false); }
-      return callback(null, user);
-    });
+  {
+    passReqToCallback: true
+  },
+  (req, username, password, done) => {
+  users.fetch(username, (err, user) => {
+    if (err) { return done(err) };
+    if (!user) { return done(null, false, {message: "incorrect username"}); }
+    if (user.password != password) { return done(null, false, {message: "Incorrect Password"}); }
+    return done(null, user);
+  });
 }));
 
-passport.serializeUser( (user, callback) => {
-  callback(null, user.username);
+passport.serializeUser( (user, done) => {
+  done(null, user.username);
 });
 
-passport.deserializeUser( (username, callback) => {
-  users.login(username, (err, user) => {
-    if (err) { return callback(error); }
-    callback(null, user);
+passport.deserializeUser( (username, done) => {
+  users.fetch(username, (err, user) => {
+    done(null, user);
   });
 });
 

@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const handlebars = require("express-handlebars");
+const flash = require("connect-flash");
 
 // Passport functionality is in middleware/passport
 const passport = require("./middleware/passport.js");
@@ -13,10 +14,12 @@ const port = 3000;
 let app = express();
 
 // intialize utilities
+// SESSION NEEDS TO GO FIRST
+app.use(require('express-session')({ secret: 'csc317', resave: true, saveUninitialized: false})); // having the secret in plaintext is necessary
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(require('express-session')({ secret: 'csc317', resave: false, saveUninitialized: false})); // having the secret in plaintext is necessary
 app.use(logger('dev'));
+app.use(flash());
 // declare json parsers BEFORE router intializaers
 // or else results in req.body undefined values
 app.use(express.urlencoded({

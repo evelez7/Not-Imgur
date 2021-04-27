@@ -16,7 +16,6 @@ module.exports = {
    */
   register : function (username, email, password, callback)
   {
-    console.log("BEFORE SELECT");
     // user table is of the form USER PW EMAIL
     db.query('INSERT INTO users SET ?', {username : username, password: password, email: email}, (err, result) => {
       if (err)
@@ -43,6 +42,17 @@ module.exports = {
     db.query('SELECT * from users WHERE username = ?', username, (err, result) => {
       if (err) { return callback(null, null) };
       return callback(null, result[0]);
+    });
+  },
+
+  fetch: function(username, done)
+  {
+    db.query('SELECT * from users WHERE username = ?', username, (err, result) =>
+    {
+      if (err) {return done(err, null); }
+      if (result.length === 0) { return done(null, null); }
+      if (result[0].username != username) { return done(null, null); }
+      return done(null, result[0]);
     });
   }
   // login: function(req, res, next)

@@ -4,17 +4,26 @@ const passport = require("../middleware/passport.js");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('main', {layout: 'login'});
+  if (req.user) { res.redirect(302, '/') };
+  res.render('main', {
+    layout: 'login'
+  });
 });
 
-router.post('/', function(req, res, next) {
-  res.redirect(302, '/');
-});
-
+/**
+ * Router for the submission of the login form
+ *
+ * Calls the authenticate mdidleware from Passport
+ */
 router.post('/submit',
-  passport.authenticate('local', {failureRedirect: '/login' }),
-  (req, res, next) => {
-    res.redirect(302, '/');
-});
+  passport.authenticate('local',
+  {
+    failureRedirect: '/login',
+    failureFlash: true
+  }),
+  function(req, res) {
+    res.redirect('/');
+  }
+);
 
 module.exports = router;
