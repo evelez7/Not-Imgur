@@ -6,5 +6,7 @@ There is an SQL data dump located here, `csc317_users.sql` which is used to popu
 This app assumes the following (from `models/database.js`):
 
 Database name: csc317db
+
 Database user: photoapp
+
 Database password:
