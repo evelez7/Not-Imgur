@@ -19,7 +19,8 @@ Please follow the instructions below and fill in the information requested when 
 # Build/Run Instructions
 
 ## Build Instructions
-There are currently no required commands to build the project.
+1. Navigate to source folder (in the repo, 'cd application')
+2. run 'npm install' to get all **required** dependencies
 
 ## Run Instructions
 1. Navigate to application source (in the repository, 'cd application') through the command line
