@@ -1,4 +1,3 @@
-
 var express = require('express');
 var router = express.Router();
 
@@ -11,6 +10,15 @@ router.get('/', function(req, res, next) {
       title: "Example title",
       description: "Example description",
       image: "url"
+    },
+    which_navbar: () => {
+      if (req.user)
+      {
+        return "navbar_authenticated";
+      } else
+      {
+        return "navbar_unauthenticated";
+      }
     }
   });
 });
