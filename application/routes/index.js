@@ -1,10 +1,20 @@
 var express = require('express');
 var router = express.Router();
-let users = require('../controllers/user.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('main', {layout: 'home'});
+  res.render('main', {
+    layout: 'home',
+    which_navbar: () => {
+      if (req.user)
+      {
+        return "navbar_authenticated";
+      } else
+      {
+        return "navbar_unauthenticated";
+      }
+    }
+  });
 });
 
 module.exports = router;
