@@ -7,7 +7,7 @@ const db = require('../models/database.js');
 const { nanoid } = require('nanoid');
 
 module.exports = {
-  post : function(req, done)
+  post : (req, done) =>
   {
     // post records are of the form id userID title description image date_created
     let new_id = nanoid();
@@ -26,6 +26,26 @@ module.exports = {
       // the callback function takes (error, result)
 
       return done(error, new_id);
+    });
+  },
+
+  /**
+   * Retrieves a post record from db according to the id of the post requested
+   *
+   * This is called from
+   */
+  retrieve : (req, res, next) =>
+  {
+    db.query('SELECT * from post WHERE id = ?', req.params.postId,
+    (error, result) =>
+    {
+      if (error) console.log(error);
+
+      if (!result) console.log("fuck");
+
+      req.post = result[0];
+      req.post.check = "CHECK CHECK";
+      next();
     });
   }
 }
