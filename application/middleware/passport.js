@@ -27,7 +27,7 @@ passport.use(new passport_local.Strategy(
     passReqToCallback: true
   },
   (req, username, password, done) => {
-    users.fetch(username, (err, user) => {
+    users.fetch_username(username, (err, user) => {
       if (err) { return done(err) }; // fail if error exists
       if (!user) { return done(null, false, {message: "incorrect username"}); } // fail if user was unable to be found
 
@@ -45,7 +45,7 @@ passport.serializeUser( (user, done) => {
 });
 
 passport.deserializeUser( (username, done) => {
-  users.fetch(username, (err, user) => {
+  users.fetch_username(username, (err, user) => {
     done(null, user);
   });
 });

@@ -8,18 +8,18 @@
     </head>
     <body id="post_page">
       {{> (which_navbar) }}
-    <form class="form_box">
+    <form class="form_box" method="post" enctype="multipart/form-data" action="/post_image/submit">
         <h3>Posting</h3>
         <div class="form_inputs">
 
             <label>Please input a title</label>
-            <input placeholder="Title..." class="input_field" type="text"><br>
+            <input placeholder="Title..." name="title" class="input_field" type="text"><br>
 
             <label>Please input a description.</label>
-            <input placeholder="Description..." class="input_field" type="text"><br>
+            <input placeholder="Description..." name="description" class="input_field" type="text"><br>
 
             <label>Please select a file to upload.</label>
-            <input type="file" id="imageInput" name="imageInput" accept="image/*"><br>
+            <input type="file" id="imageInput" name="image" accept="image/*"><br>
 
             <label for="tos">I agree to the Acceptable Use Policy for media.</label>
             <input type="checkbox" id="tos" name="tos"><br>
