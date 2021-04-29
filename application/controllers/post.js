@@ -7,7 +7,7 @@ const db = require('../models/database.js');
 const { nanoid } = require('nanoid');
 
 module.exports = {
-  post : (req, done) =>
+  post : (req, target_path, done) =>
   {
     // post records are of the form id userID title description image date_created
     let new_id = nanoid();
@@ -17,7 +17,7 @@ module.exports = {
       userID: req.user.id,
       title: req.body.title,
       description: req.body.description,
-      image: req.file.path,
+      image: target_path,
       date_created: new Date(new Date().toISOString()).toJSON().slice(0,19).replace('T', ' ')
     },
     (error, result) => {
@@ -41,10 +41,9 @@ module.exports = {
     {
       if (error) console.log(error);
 
-      if (!result) console.log("fuck");
+      if (!result) console.log("no result");
 
       req.post = result[0];
-      req.post.check = "CHECK CHECK";
       next();
     });
   }

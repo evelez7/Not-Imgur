@@ -12,13 +12,12 @@ let router = express.Router();
  */
 router.get('/:postId', post.retrieve, function(req, res, next) {
   // placeholder for actual post data
-  console.log("check: ", req.post.check);
   res.render('main', {
     layout: 'image_post',
     post: {
       title: req.post.title,
       description: req.post.description,
-      image: req.post.image
+      image: "/" + req.post.image // pre-append / so the html uses absolute path to upload dir
     },
     which_navbar: () => {
       if (req.user)

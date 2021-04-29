@@ -23,6 +23,7 @@
 .centered_button {
     width: 50%;
     margin: 0 auto;
+
 }
 
 .form_box {
@@ -67,7 +68,6 @@
 }
 
 #image_page {
-
     background-color: #C22424;
 }
 

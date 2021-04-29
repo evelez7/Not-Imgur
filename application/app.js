@@ -29,6 +29,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use("/public", express.static(path.join(__dirname, 'public')));
+app.use("/upload", express.static(path.join(__dirname, 'upload')));
 
 // initialize routes for pages
 // TODO: remove database connection from routes, they should only call passport when needed

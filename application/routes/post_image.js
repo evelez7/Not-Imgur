@@ -11,10 +11,17 @@ const post = require("../controllers/post.js");
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const { v1: uuidv1 } = require('uuid');
 let router = express.Router();
 
+/**
+ * Initialize multer for recieving images
+ *
+ * dest is the temporary directory for file storage
+ * They should be moved to /upload once verified
+ */
 const uploader = multer({
-  dest: "../uploaded/temp"
+  dest: "upload/temp" // throws error with a starting "/" (?)
 });
 
 /**
@@ -51,18 +58,18 @@ router.post('/submit',
     }
 
     const temp_path = req.file.path;
-    const target_path = path.join(__dirname, "../uploaded/image.png");
+    const new_image_name = uuidv1(); // uuidv1 is based off of timestamp and MAC address
+    const target_path = "upload/".concat(new_image_name); // does not work with starting / (?)
 
     fs.rename(temp_path, target_path, err =>
       {
-        if (err) console.log(err);
-        req.file.path = target_path;
+        if (err) console.log("RENAME: ", err);
       });
 
-    post.post(req, (error, post_id) =>
+    post.post(req, target_path, (error, post_id) =>
     {
       if (error) {
-        // need to throw an error here, or from caller
+        console.log("AFTER POST: ", error);
       }
 
       if (post_id) {
