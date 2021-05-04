@@ -31,19 +31,28 @@ module.exports = {
 
   /**
    * Retrieves a post record from db according to the id of the post requested
-   *
-   * This is called from
    */
-  retrieve : (req, res, next) =>
+  retrieve_single : (req, res, next) =>
   {
-    db.query('SELECT * from post WHERE id = ?', req.params.postId,
+    db.query('SELECT * from post WHERE id = ? LIMIT ?', [req.params.postId, 1],
     (error, result) =>
     {
       if (error) console.log(error);
 
       if (!result) console.log("no result");
-
       req.post = result[0];
+      next();
+    });
+  },
+
+  retrieve: (req, res, next) =>
+  {
+    db.query('SELECT * from post LIMIT ?',  20,
+    (error, result) =>
+    {
+      if (error) console.log(error);
+      if (!result) console.log("no result");
+      req.posts = result;
       next();
     });
   }

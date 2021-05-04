@@ -10,7 +10,7 @@ let router = express.Router();
 /**
  *
  */
-router.get('/:postId', post.retrieve, function(req, res, next) {
+router.get('/:postId', post.retrieve_single, function(req, res, next) {
   // placeholder for actual post data
   res.render('main', {
     layout: 'image_post',

@@ -1,10 +1,18 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const post = require("../controllers/post.js");
+let router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
+/**
+ * GET router for home page (index)
+ *
+ * Will ask for images to load
+ */
+router.get('/', post.retrieve, function(req, res, next) {
+  console.log("array type: ", req.posts[0]);
   res.render('main', {
-    layout: 'home',
+    layout: 'index',
+    // posts: JSON.parse(JSON.stringify(req.posts).replace(/&quot;/g,'"')),
+    posts: req.posts,
     which_navbar: () => {
       if (req.user)
       {
