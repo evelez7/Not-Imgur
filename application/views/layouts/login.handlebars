@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="/public/css/common.css">
-        <title>
-            Login Page
-        </title>
-    </head>
+<head>
+  <link rel="stylesheet" type="text/css" href="/public/css/common.css">
+  {{> bootstrap_css }}
+  <title>
+    Login Page
+  </title>
+</head>
 
-    <body id="login_page">
-      {{> navbar_unauthenticated }}
-    <div class="form_box">
-        <h3>Login</h3>
+<body id="login_page">
+  {{> navbar_unauthenticated }}
+  <div class="form_box">
+    <h3>Login</h3>
 
     <form name="login_form" method="post" action="/login/submit">
-        <label>Username</label>
-        <input placeholder="Enter Username..." class="input_field" name="username" required type="text" value=""><br>
+      <label>Username</label>
+      <input placeholder="Enter Username..." class="input_field" name="username" required type="text" value=""><br>
 
-        <label>Password</label>
-        <input placeholder="Enter Password..." class="input_field" name="password" type="password" value=""><br>
-        <input type="submit" class="submit" value="submit">
+      <label>Password</label>
+      <input placeholder="Enter Password..." class="input_field" name="password" type="password" value=""><br>
+      <input type="submit" class="submit" value="submit">
     </form>
-    </div>
-    </body>
+  </div>
+</body>
+
 </html>
