@@ -1,0 +1,19 @@
+img {
+  display: block;
+  max-width: 50%;
+  height: auto;
+}
+
+.card {
+  margin: 0 auto;
+  float: none;
+  margin-bottom: 10px;
+}
+
+.img-center {
+  margin: 0 auto;
+}
+
+.image_page {
+  background-color: red;
+}
