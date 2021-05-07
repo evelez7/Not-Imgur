@@ -5,6 +5,7 @@
   <link rel="stylesheet" type="text/css" href="/public/css/image_post.css">
   <script>
     let logged_in = "{{ logged_in }}";
+    let post_Id = "{{ post.id }}";
   </script>
   {{> bootstrap_css }}
   <title>Image Post</title>
@@ -27,6 +28,12 @@
     <button type="submit" id="comment-submit" class="btn btn-primary" >Submit</button>
         {{!-- <input type="submit" class="submit" value="submit"> --}}
   </form>
+</div>
+
+<div>
+  {{#each comments}}
+    <p> {{ this.comment }} </p>
+  {{/each}}
 </div>
 
 <div class="modal fade" id="auth-modal" tabindex="-1" aria-labelledby="auth-modal-label" aria-hidden="true">
@@ -79,7 +86,7 @@
         <div class="modal-body">
           <div class="mb-3">
             <label for="register-name" class="form-label">Name</label>
-            <input type="text" name="name" class="form-control" id="register-name" aria-describedby="name">
+            <input type="text" name="username" class="form-control" id="register-name" aria-describedby="name">
           </div>
 
           <div class="mb-3">

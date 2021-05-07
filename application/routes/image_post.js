@@ -5,12 +5,13 @@
  */
 const express = require('express');
 const post = require("../controllers/post.js");
+const comment = require("../controllers/comment.js");
 let router = express.Router();
 
 /**
  *
  */
-router.get('/:postId', post.retrieve_single, function(req, res, next) {
+router.get('/:postId', post.retrieve_single, comment.retrieve, function(req, res, next) {
   let logged_in;
   if (req.user) logged_in = true;
   else logged_in = false;
@@ -22,6 +23,7 @@ router.get('/:postId', post.retrieve_single, function(req, res, next) {
       image: "/" + req.post.image, // pre-append / so the html uses absolute path to upload dir
       id: req.post.id
     },
+    comments: req.comments,
     which_navbar: () => {
       if (req.user)
       {

@@ -18,5 +18,11 @@ function inject_comment(event)
   new_comment.setAttribute('type', "text");
   new_comment.setAttribute('value', document.getElementById("comment").value);
   form.appendChild(new_comment);
+
+  let new_id = document.createElement("input");
+  new_id.setAttribute('name', "postId");
+  new_id.setAttribute('type', "text");
+  new_id.setAttribute('value', post_Id);
+  form.appendChild(new_id);
   return;
 }
