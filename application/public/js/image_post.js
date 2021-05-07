@@ -5,14 +5,15 @@ function check_if_authenticated(event)
 {
   if (logged_in === "false")
   {
+    console.log("false!");
     modal.show();
     event.preventDefault();
   }
 }
 
-function inject_comment(event)
+function inject_comment(event, form_name)
 {
-  let form = document.getElementById("register-form");
+  let form = document.getElementById(form_name + "-form");
   let new_comment = document.createElement("input");
   new_comment.setAttribute('name', "comment");
   new_comment.setAttribute('type', "text");

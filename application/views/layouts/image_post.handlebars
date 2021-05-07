@@ -64,13 +64,23 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
-      <div class="modal-body">
+      <form id="login-form" action="/login" method="post">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="login-email" class="form-label">Email</label>
+            <input type="text" name="email" class="form-control" id="login-email" aria-describedby="email">
+          </div>
+        </div>
 
-      </div>
+        <div class="mb-3">
+          <label for="login-password" class="form-label">Password</label>
+          <input type="text" name="password" class="form-control" id="login-password" aria-describedby="password">
+        </div>
 
-      <div class="modal-footer">
-
-      </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" onclick='inject_comment(event, "login")'>Submit</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -106,7 +116,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" onclick="inject_comment(event)">Submit</button>
+          <button type="submit" class="btn btn-primary" onclick='inject_comment(event, "register")'>Submit</button>
         </div>
       </form>
     </div>

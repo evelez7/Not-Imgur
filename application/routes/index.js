@@ -1,5 +1,6 @@
 const express = require('express');
 const post = require("../controllers/post.js");
+const passport = require("../middleware/passport.js");
 let router = express.Router();
 
 /**
@@ -7,7 +8,8 @@ let router = express.Router();
  *
  * Will ask for images to load
  */
-router.get('/', post.retrieve, function(req, res, next) {
+router.get('/', post.retrieve,
+function(req, res, next) {
   console.log("array type: ", req.posts[0]);
   res.render('main', {
     layout: 'index',
@@ -16,9 +18,11 @@ router.get('/', post.retrieve, function(req, res, next) {
     which_navbar: () => {
       if (req.user)
       {
+        console.log("authenicated!");
         return "navbar_authenticated";
       } else
       {
+        console.log("unauthentciated!");
         return "navbar_unauthenticated";
       }
     }

@@ -6,6 +6,7 @@
 const express = require('express');
 const post = require("../controllers/post.js");
 const comment = require("../controllers/comment.js");
+const passport = require("../middleware/passport.js");
 let router = express.Router();
 
 /**
@@ -13,8 +14,13 @@ let router = express.Router();
  */
 router.get('/:postId', post.retrieve_single, comment.retrieve, function(req, res, next) {
   let logged_in;
-  if (req.user) logged_in = true;
-  else logged_in = false;
+  if (req.user)
+  {
+    logged_in = true;
+  } else
+  {
+    logged_in = true;
+  }
   res.render('main', {
     layout: 'image_post',
     post: {
@@ -37,9 +43,11 @@ router.get('/:postId', post.retrieve_single, comment.retrieve, function(req, res
   });
 });
 
-router.post('/:postId/comment', function(req, res, next) {
+router.post('/:postId/comment',
+  function(req, res, next) {
   if (req.user) {
-    // post.comment(req.param.id);
+    comment.submit(req.body.comment, req.params.postId, req.user.id);
+    res.redirect(302, '/image_post/' + req.params.postId);
   } else {
     let comment = req.body.comment;
     console.log(comment);

@@ -1,4 +1,6 @@
 var express = require('express');
+const comment = require('../controllers/comment.js');
+const { register } = require('../controllers/user.js');
 var router = express.Router();
 const passport = require("../middleware/passport.js");
 
@@ -25,5 +27,17 @@ router.post('/submit',
     res.redirect('/');
   }
 );
+
+router.post('/',
+  passport.authenticate('local',
+  {
+    failureRedirect: '/login',
+    failureFlash: true
+  }), (req, res, next) =>
+  {
+    comment.submit(req.body.comment, req.body.postId, req.user.id);
+    res.redirect(302, '/image_post/' + req.body.postId);
+  });
+
 
 module.exports = router;

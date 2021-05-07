@@ -24,11 +24,13 @@ const users = require("../controllers/user.js");
  */
 passport.use(new passport_local.Strategy(
   {
-    passReqToCallback: true
+    passReqToCallback: true,
+    usernameField: 'email'
   },
+  // the email is the username
   (req, username, password, done) => {
-    users.fetch_username(username, (err, user) => {
-      if (err) { return done(err) }; // fail if error exists
+    users.fetch_email(username, (err, user) => {
+      if (err) { return done(err, {message: "error!"}) }; // fail if error exists
       if (!user) { return done(null, false, {message: "incorrect username"}); } // fail if user was unable to be found
 
       if (user.password != password)
@@ -41,11 +43,11 @@ passport.use(new passport_local.Strategy(
 }));
 
 passport.serializeUser( (user, done) => {
-  done(null, user.username);
+  done(null, user.email);
 });
 
 passport.deserializeUser( (username, done) => {
-  users.fetch_username(username, (err, user) => {
+  users.fetch_email(username, (err, user) => {
     done(null, user);
   });
 });
