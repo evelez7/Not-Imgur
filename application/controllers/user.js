@@ -5,6 +5,7 @@
  */
 const { v4: uuidv4 } = require('uuid');
 const db = require('../models/database.js');
+const crypto = require('crypto');
 
 module.exports = {
   /**
@@ -20,12 +21,15 @@ module.exports = {
     let new_id = uuidv4();
     // format Date object into MySQL DATE_TIME
     let date_created = new Date(new Date().toISOString()).toJSON().slice(0,19).replace('T', ' ');
+
+    salt="this is a bad salt";
+    hash = crypto.pbkdf2Sync(req.body.password,salt, 1000, 64, `sha512`).toString('hex');
     // user table is of the form id username email password date_created
     db.query('INSERT INTO user SET ?',
       {
         id: new_id,
-        username : req.body.username,
-        password: req.body.password,
+        name : req.body.name,
+        password: hash,
         email: req.body.email,
         date_created: date_created
       },

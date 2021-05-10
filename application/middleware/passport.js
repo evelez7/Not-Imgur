@@ -13,6 +13,7 @@
 const passport = require("passport");
 let passport_local = require("passport-local");
 const users = require("../controllers/user.js");
+const crypto = require('crypto');
 
 /**
  * Configure passport to use the default local strategy.
@@ -33,7 +34,9 @@ passport.use(new passport_local.Strategy(
       if (err) { return done(err, {message: "error!"}) }; // fail if error exists
       if (!user) { return done(null, false, {message: "incorrect username"}); } // fail if user was unable to be found
 
-      if (user.password != password)
+      let salt = "this is a bad salt";
+      let hashed_password = crypto.pbkdf2Sync(password, salt, 1000, 64, `sha512`).toString('hex');
+      if (user.password != hashed_password)
       {
         return done(null, false, {message: "Incorrect Password"}); // fail if passwords dont match
       }

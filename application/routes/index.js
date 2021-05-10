@@ -10,7 +10,6 @@ let router = express.Router();
  */
 router.get('/', post.retrieve,
 function(req, res, next) {
-  console.log("array type: ", req.posts[0]);
   res.render('main', {
     layout: 'index',
     // posts: JSON.parse(JSON.stringify(req.posts).replace(/&quot;/g,'"')),
