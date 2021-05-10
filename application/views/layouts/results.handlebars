@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="/public/css/index.css">
+  <script src="/public/js/index.js"></script>
+  {{> bootstrap_css }}
+  <title>Results</title>
+</head>
+
+<body id="home_page">
+  {{> (which_navbar) }}
+  <div class="container">
+
+    <div class="p-5 mb-4 bg-light rounded-3">
+      <h1 class="display-4">Searched for: {{ query }}</h1>
+    </div>
+  </div>
+  <div class="row row-cols-3 row-fluid">
+    {{#each posts}}
+    <div class="col-md-4 col-offset-5">
+      <a href="/image_post/{{ this.id }}">
+        <div class="card">
+          <img src="{{ this.image }}" class="card-img-top" />
+          <div class="card-body">
+            <h5 class="card-title">{{ this.title }}</h5>
+          </div>
+        </div>
+      </a>
+    </div>
+    {{/each}}
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

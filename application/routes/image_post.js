@@ -16,10 +16,11 @@ router.get('/:postId', post.retrieve_single, comment.retrieve, function(req, res
   let logged_in;
   if (req.user)
   {
+    console.log(req.user);
     logged_in = true;
   } else
   {
-    logged_in = true;
+    logged_in = false;
   }
   res.render('main', {
     layout: 'image_post',

@@ -12,23 +12,23 @@
 
 <body id="reg_page">
   {{> navbar_unauthenticated }}
-
-  <div class="form_box" class="centered_button">
-    <form name="registration_form" method="post" action="register/submit" id="registration_form" onsubmit="registration_submit(event)">
+  <div class="card mx-auto w-50">
+    <div class="card-body">
+    <form name="registration_form" method="post" action="register/submit" id="registration-form" onsubmit="registration_submit(event)">
       <h3>Registration</h3>
       <div class="form_inputs">
-        <label class="input_label">User name</label><br>
-        <input class="input_field" name="username" placeholder="Enter Username..." type="text" value="" id="username"><br>
+        <label class="form-label">User name</label><br>
+        <input class="form-control" name="username" placeholder="Enter Username..." type="text" value="" id="username"><br>
 
-        <label class="input_label">E-mail</label><br>
-        <input class="input_field" name="email" placeholder="Enter email..." type="email" value="" id="email"><br>
+        <label class="form-label">E-mail</label><br>
+        <input class="form-control" name="email" placeholder="Enter email..." type="email" value="" id="email"><br>
 
-        <label class="input_label">Password</label><br>
-        <input class="input_field" name="password" placeholder="Enter Password..." type="password" id="password"
+        <label class="form-label">Password</label><br>
+        <input class="form-control" name="password" placeholder="Enter Password..." type="password" id="password"
           onkeyup="validate_credentials();"><br>
 
-        <label class="input_label">Confirm Password</label><br>
-        <input class="input_field" placeholder="Confirm Passowrd..." type="password" id="confirm_password"
+        <label class="form-label">Confirm Password</label><br>
+        <input class="form-control" placeholder="Confirm Passowrd..." type="password" id="confirm_password"
           onkeyup="validate_credentials();"><br>
         <span id="valid_password_message">
         </span>
@@ -43,12 +43,14 @@
         <input type="checkbox" id="tos" name="tos" required><br>
       </div>
 
-      <div class="centered_button">
-        <input type="submit" class="submit" value="submit">
-      </div>
+      <button type="submit" id="comment-submit" class="btn btn-primary" >Submit</button>
     </form>
-
+    </div>
   </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>

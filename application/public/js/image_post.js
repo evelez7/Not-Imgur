@@ -3,9 +3,9 @@ let modal = new bootstrap.Modal(modal_html);
 
 function check_if_authenticated(event)
 {
+  console.log("check: ", logged_in);
   if (logged_in === "false")
   {
-    console.log("false!");
     modal.show();
     event.preventDefault();
   }

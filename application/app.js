@@ -38,7 +38,8 @@ const index_router = require('./routes/index'),
   registration_router = require('./routes/register'),
   image_post_router = require('./routes/image_post'),
   login_router = require('./routes/login'),
-  logout_router = require('./routes/logout');
+  logout_router = require('./routes/logout'),
+  search_router = require('./routes/search');
 
 // initialize endpoints
 app.use('/', index_router);
@@ -47,6 +48,7 @@ app.use('/register', registration_router);
 app.use('/image_post', image_post_router);
 app.use('/login', login_router);
 app.use('/logout', logout_router);
+app.use('/search', search_router);
 
 // initialize template engine`
 app.set('view engine', 'handlebars');

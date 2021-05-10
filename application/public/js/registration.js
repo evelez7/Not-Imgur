@@ -1,3 +1,8 @@
+window.addEventListener('load', () => {
+  let current_nav_item = document.getElementById('register-nav');
+  current_nav_item.classList.add('active');
+});
+
 let valid_password = false;
 /**
  * Client-side credential validation

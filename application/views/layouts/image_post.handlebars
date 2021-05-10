@@ -15,9 +15,10 @@
   {{> (which_navbar) }}
   <div class="card mx-auto text-center">
     <div class="card-body">
-      <h5 class="card-title">Hello</h5>
+      <h1 class="card-title"> {{ post.title }}</h1>
     </div>
     <img class="img-center" src="{{ post.image }}">
+    <p> {{ post.description }} </p>
   </div>
 <div class="comment-form">
   <form action="/image_post/{{ post.id }}/comment" id="comment-form" method="post" onsubmit="check_if_authenticated(event)">
@@ -26,7 +27,6 @@
       </textarea>
     </div>
     <button type="submit" id="comment-submit" class="btn btn-primary" >Submit</button>
-        {{!-- <input type="submit" class="submit" value="submit"> --}}
   </form>
 </div>
 

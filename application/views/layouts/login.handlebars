@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script src="/public/js/login.js"></script>
   <link rel="stylesheet" type="text/css" href="/public/css/common.css">
   {{> bootstrap_css }}
   <title>
@@ -10,18 +11,19 @@
 
 <body id="login_page">
   {{> navbar_unauthenticated }}
-  <div class="form_box">
-    <h3>Login</h3>
-
+<div class="card mx-auto w-75">
+  <div class="card-body">
     <form name="login_form" method="post" action="/login/submit">
-      <label>Email</label>
-      <input placeholder="Enter Username..." class="input_field" name="email" required type="text" value=""><br>
+      <h3>Login</h3>
+      <label class="form-label">Email</label>
+      <input placeholder="Enter Username..." class="form-control" name="email" required type="text" value=""><br>
 
-      <label>Password</label>
-      <input placeholder="Enter Password..." class="input_field" name="password" type="password" value=""><br>
+      <label class="form-label">Password</label>
+      <input placeholder="Enter Password..." class="form-control" name="password" type="password" value=""><br>
       <input type="submit" class="submit" value="submit">
     </form>
-  </div>
+    </div>
+</div>
 </body>
 
 </html>

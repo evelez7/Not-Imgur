@@ -55,5 +55,16 @@ module.exports = {
       req.posts = result;
       next();
     });
+  },
+
+  retrieve_search: (req, res, next) =>
+  {
+    db.query(`SELECT * from post WHERE title LIKE '%` + req.body.search_term  +  `%'`, [20], (error, result) => {
+      if (error) console.log(error);
+      if (!result) console.log("no result");
+      req.posts = result;
+      console.log(result);
+      next();
+    });
   }
 }
