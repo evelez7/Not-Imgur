@@ -3,7 +3,7 @@ window.addEventListener('load', () => {
   current_nav_item.classList.add('active');
 });
 
-let valid_password = false;
+let valid_password = true;
 /**
  * Client-side credential validation
  *
