@@ -2,9 +2,10 @@
 <html>
 
 <head>
+  {{> bootstrap_css }}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script type="text/javascript" src="/public/js/registration.js"></script>
   <link rel="stylesheet" type="text/css" href="/public/css/common.css">
-  {{> bootstrap_css }}
   <title>
     Registration Page
   </title>
@@ -24,12 +25,12 @@
         <input class="form-control" name="email" placeholder="Enter email..." type="email" value="" id="email"><br>
 
         <label class="form-label">Password</label><br>
-        <input class="form-control" name="password" placeholder="Enter Password..." type="password" id="password"
-          onkeyup="validate_credentials();"><br>
+        <input class="form-control" name="password" placeholder="Enter Password..." type="password" id="password" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Right side!"
+          {{!onkeyup="validate_credentials();" }}><br>
 
         <label class="form-label">Confirm Password</label><br>
-        <input class="form-control" placeholder="Confirm Passowrd..." type="password" id="confirm_password"
-          onkeyup="validate_credentials();"><br>
+        <input class="form-control" placeholder="Confirm Passowrd..." name="confirm_password" type="password" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Right side!" id="confirm-password"
+         {{! onkeyup="validate_credentials();" }}><br>
         <span id="valid_password_message">
         </span>
         {{!-- <br>
@@ -48,6 +49,26 @@
     </div>
   </div>
 
+  <div id="password-reqs" style="display: none">
+    <ul class="list-group custom-popover">
+      <li class="list-group-item">
+        Must start with an alphabetical character
+      </li>
+      <li class="list-group-item">
+        Must contain an uppercase character
+      </li>
+      <li class="list-group-item">
+        Must contain a special character
+      </li>
+      <li class="list-group-item">
+        Must contain a number
+      </li>
+    </ul>
+  </div>
+
+  <div id="password-matches" style="display: none">
+    <p id="password-matches-field" class="custom-popover">Hello</p>
+  </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
     crossorigin="anonymous"></script>

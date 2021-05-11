@@ -34,6 +34,7 @@ router.get('/:postId', post.retrieve_single, comment.retrieve, function(req, res
     which_navbar: () => {
       if (req.user)
       {
+        res.locals.name = req.user.name;
         return "navbar_authenticated";
       } else
       {

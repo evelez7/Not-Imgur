@@ -9,6 +9,7 @@ const flash = require("connect-flash");
 // Passport functionality is in middleware/passport
 const passport = require("./middleware/passport.js");
 
+
 const port = 3000;
 
 let app = express();

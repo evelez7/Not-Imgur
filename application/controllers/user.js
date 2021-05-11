@@ -39,6 +39,7 @@ module.exports = {
           console.log("ERROR: User registration");
           console.log(err);
         }
+        req.body.id = new_id;
     });
     next();
   },
