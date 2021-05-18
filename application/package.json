@@ -4,7 +4,8 @@
   "private": true,
   "main": "app.js",
   "scripts": {
-    "start": "nodemon ./app.js localhost 3000"
+    "start": "nodemon ./app.js localhost 3000",
+    "init": "node ./config/initialize.js || true"
   },
   "dependencies": {
     "bootstrap": "^5.0.0-beta3",

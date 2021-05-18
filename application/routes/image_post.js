@@ -28,13 +28,12 @@ router.get('/:postId', post.retrieve_single, comment.retrieve, function(req, res
       title: req.post.title,
       description: req.post.description,
       image: "/" + req.post.image, // pre-append / so the html uses absolute path to upload dir
-      id: req.post.id
+      id: req.post.id,
     },
     comments: req.comments,
     which_navbar: () => {
       if (req.user)
       {
-        res.locals.name = req.user.name;
         return "navbar_authenticated";
       } else
       {

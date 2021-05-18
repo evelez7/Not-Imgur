@@ -20,6 +20,17 @@
     <img class="img-center" src="{{ post.image }}">
     <p> {{ post.description }} </p>
   </div>
+
+<div>
+  {{#each comments}}
+    <div class="comment mt-4 text-justify">
+      <h4> {{ this.authorId }} </h4>
+      <span> {{ this.date_created }} </span><br>
+      <p> {{ this.comment }} </p>
+    </div>
+  {{/each}}
+</div>
+
 <div class="comment-form">
   <form action="/image_post/{{ post.id }}/comment" id="comment-form" method="post" onsubmit="check_if_authenticated(event)">
     <div>
@@ -28,13 +39,7 @@
     </div>
     <button type="submit" id="comment-submit" class="btn btn-primary" >Submit</button>
   </form>
-</div>
-
-<div>
-  {{#each comments}}
-    <p> {{ this.comment }} </p>
-  {{/each}}
-</div>
+</div><br>
 
 <div class="modal fade" id="auth-modal" tabindex="-1" aria-labelledby="auth-modal-label" aria-hidden="true">
   <div class="modal-dialog">
