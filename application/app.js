@@ -68,6 +68,33 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use( (req, res, next) => {
+  res.status(400);
+  if (req.accepts('html')) {
+    res.render('main', {
+      layout: '404',
+      which_navbar: () =>
+      {
+        if (req.user) {
+          return "navbar_authenticated";
+        } else {
+          return "navbar_unauthenticated";
+        }
+      },
+      message: "404, not found! Go somewhere else!"
+    });
+    return;
+  }
+
+  // respond with json
+  if (req.accepts('json')) {
+    res.json({ error: 'Not found' });
+    return;
+  }
+  res.type('txt').send('Not found');
+  // default to plain-text. send()
+  next();
+});
 const server = app.listen(port, function () {
   console.log("Listening on port 3000");
 });

@@ -24,6 +24,7 @@ function inject_comment(event, form_name)
   new_id.setAttribute('name', "postId");
   new_id.setAttribute('type', "text");
   new_id.setAttribute('value', post_Id);
+  new_id.style.visibility="hidden";
   form.appendChild(new_id);
   return;
 }

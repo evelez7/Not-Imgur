@@ -11,7 +11,7 @@
   <title>Image Post</title>
 </head>
 
-<body>
+<body id="image_post_body">
   {{> (which_navbar) }}
   <div class="container">
     <div class="row">
@@ -20,30 +20,32 @@
           <div class="card-body">
             <h1 class="card-title"> {{ post.title }}</h1>
           </div>
-          <img class="img-center" src="{{ post.image }}">
+          <img class="img-center" src="/{{ post.image }}">
           <p> {{ post.description }} </p>
+          <p> posted by {{ post.author }} on {{post.date_created}} </p>
         </div>
-      {{!-- </div> --}}
+        {{!--
+      </div> --}}
 
       <div class="col-md-6">
         {{#each comments}}
-        <div class="comment mt-4 text-justify">
-          <h4> {{ this.authorId }} </h4>
-          <span> {{ this.date_created }} </span><br>
-          <p> {{ this.comment }} </p>
+        <div class="card mt-4 text-justify">
+          <div class="card-body p-1">
+            <span> By: {{ this.author }}  <small>on {{ this.date_created }}</small> </span><br>
+            <p> {{ this.comment }} </p>
+          </div>
         </div>
         {{/each}}
 
-        <div class="comment-form">
-          <form action="/image_post/{{ post.id }}/comment" id="comment-form" method="post"
-            onsubmit="check_if_authenticated(event)">
-            <div>
-              <textarea id="comment" name="comment" placeholder="Enter a comment...">
-          </textarea>
-            </div>
+        <form action="/image_post/{{ post.id }}/comment" id="comment-form" method="post"
+          onsubmit="check_if_authenticated(event)">
+          <div class="container p-3">
+            <label class="form-label">Talk about this post!</label>
+            <textarea class="form-control" id="comment" name="comment" placeholder="Enter a comment..."></textarea>
+
             <button type="submit" id="comment-submit" class="btn btn-primary">Submit</button>
-          </form>
-        </div><br>
+          </div>
+        </form>
       </div>
     </div> {{!-- end row div --}}
   </div> {{!-- end container div --}}
@@ -57,14 +59,13 @@
         </div>
 
         <div class="modal-body">
-          Please login or register an account to submit your comment!
+          Please login to submit your comment! Or go register first!
         </div>
 
         <div class="modal-footer">
           <button class="btn btn-primary" data-bs-target="#login-modal" data-bs-toggle="modal"
             data-bs-dismiss="modal">Login</button>
-          <button class="btn btn-secondary" data-bs-target="#register-modal" data-bs-toggle="modal"
-            data-bs-dismiss="modal">Register</button>
+         <a href="/register"> <button class="btn btn-secondary" >Go Register</button></a>
         </div>
       </div>
     </div>
@@ -130,11 +131,11 @@
                 aria-describedby="password-confirm" onkeyup="validate_credentials();">
             </div>
             <span id="valid-password-message"></span><br>
-        <label class="input_label" for="ageReq">I confirm I am 13 years or older.</label>
-        <input type="checkbox" id="ageReq" name="ageReq" required><br>
+            <label class="input_label" for="ageReq">I confirm I am 13 years or older.</label>
+            <input type="checkbox" id="ageReq" name="ageReq" required><br>
 
-        <label class="input_label" for="tos">I agree to the Terms of Service and Privacy Policy.</label>
-        <input type="checkbox" id="tos" name="tos" required><br>
+            <label class="input_label" for="tos">I agree to the Terms of Service and Privacy Policy.</label>
+            <input type="checkbox" id="tos" name="tos" required><br>
 
             <div class="modal-footer">
               <button type="submit" class="btn btn-primary" onclick='inject_comment(event, "register")'>Submit</button>

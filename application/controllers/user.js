@@ -28,7 +28,7 @@ module.exports = {
     db.query('INSERT INTO user SET ?',
       {
         id: new_id,
-        name : req.body.name,
+        name : req.body.username,
         password: hash,
         email: req.body.email,
         date_created: date_created
@@ -39,7 +39,6 @@ module.exports = {
           console.log("ERROR: User registration");
           console.log(err);
         }
-        req.body.id = new_id;
     });
     next();
   },
@@ -56,7 +55,7 @@ module.exports = {
    */
   login: function(username, done)
   {
-    db.query('SELECT * from user WHERE username = ?', username, (err, result) => {
+    db.query('SELECT * from user WHERE name = ?', username, (err, result) => {
       if (err) { return done(null, null) };
       return done(null, result[0]);
     });
@@ -64,7 +63,7 @@ module.exports = {
 
   fetch_username: function(username, done)
   {
-    db.query('SELECT * from user WHERE username = ?', username, (err, result) =>
+    db.query('SELECT * from user WHERE name = ?', username, (err, result) =>
     {
       if (err) {return done(err, null); }
       if (result.length === 0) { return done(null, null); }
@@ -76,6 +75,16 @@ module.exports = {
   fetch_email: function(email, done)
   {
     db.query('SELECT * from user WHERE email = ?', email, (error, result) =>
+    {
+      if (error) { return done(error, null); }
+      if (result.length === 0) { return done(null, null); }
+      return done(null, result[0]);
+    });
+  },
+
+  fetch_id: function(id, done)
+  {
+    db.query('SELECT * from user WHERE id = ?', id, (error, result) =>
     {
       if (error) { return done(error, null); }
       if (result.length === 0) { return done(null, null); }

@@ -5,7 +5,7 @@
   {{> bootstrap_css }}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script type="text/javascript" src="/public/js/registration.js"></script>
-  <link rel="stylesheet" type="text/css" href="/public/css/common.css">
+  <link rel="stylesheet" type="text/css" href="/public/css/register.css">
   <title>
     Registration Page
   </title>
@@ -30,7 +30,7 @@
 
         <label class="form-label">Confirm Password</label><br>
         <input class="form-control" placeholder="Confirm Passowrd..." name="confirm_password" type="password" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Right side!" id="confirm-password"
-         onkeyup="validate_credentials();"><br>
+         onkeyup="validate_credentials();">
         <span id="valid_password_message">
         </span>
         {{!-- <br>

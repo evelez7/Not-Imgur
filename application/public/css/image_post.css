@@ -33,3 +33,7 @@ img {
 {
   display: inline;
 }
+
+#image_post_body {
+  background-color: #210d0c;
+}

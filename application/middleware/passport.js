@@ -45,6 +45,7 @@ passport.use(new passport_local.Strategy(
       if (!user) { console.log("bad username!"); return done(null, false, {message: "incorrect username"}); } // fail if user was unable to be found
 
       let salt = "this is a bad salt";
+      user.salt = "this is a bad salt";
       let hashed_password = crypto.pbkdf2Sync(password, salt, 1000, 64, `sha512`).toString('hex');
       if (user.password != hashed_password)
       {

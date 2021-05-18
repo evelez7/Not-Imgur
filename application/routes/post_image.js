@@ -30,6 +30,7 @@ const uploader = multer({
 router.get('/', function (req, res, next)
 {
   if (!req.user) { res.redirect(302, '/'); };
+  console.log("user: ",req.user);
   res.render('main',
     {
       layout: 'post_image',

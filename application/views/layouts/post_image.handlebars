@@ -2,7 +2,6 @@
 <html>
 
 <head>
-  <link rel="stylesheet" type="text/css" href="/public/css/common.css">
   {{> bootstrap_css }}
   <title>
     Post Image Page
@@ -11,24 +10,24 @@
 
 <body id="post_page">
   {{> (which_navbar) }}
-  <form class="form_box" method="post" enctype="multipart/form-data" action="/post_image/submit">
-    <h3>Posting</h3>
-    <div class="form_inputs">
+  <div class="card mx-auto w-75">
+    <div class="card-body">
+  <form method="post" enctype="multipart/form-data" action="/post_image/submit">
+    <h3>Make a post!</h3>
 
-      <label>Please input a title</label>
-      <input placeholder="Title..." name="title" class="input_field" type="text"><br>
+      <label class="form-label">Please input a title</label>
+      <input class="form-control" placeholder="Title..." name="title" class="input_field" required type="text"><br>
 
-      <label>Please input a description.</label>
-      <input placeholder="Description..." name="description" class="input_field" type="text"><br>
+      <label class="form-label">Please input a description.</label>
+      <input class="form-control" placeholder="Description..." name="description" class="input_field" required type="text"><br>
 
-      <label>Please select a file to upload.</label>
-      <input type="file" id="imageInput" name="image" accept="image/*"><br>
+      <label class="form-label">Please select a file to upload.</label>
+      <input class="form-control" type="file" id="imageInput" name="image" required accept="image/*"><br>
 
       <label for="tos">I agree to the Acceptable Use Policy for media.</label>
       <input type="checkbox" id="tos" name="tos"><br>
-    </div>
-    <input type="submit" class="submit" value="submit">
-  </form>
+    <input type="submit" class="submit" value="submit" required>
+  </form></div></div>
 </body>
 
 </html>
