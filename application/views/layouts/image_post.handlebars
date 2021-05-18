@@ -129,7 +129,12 @@
               <input type="password" name="confirm_password" class="form-control" id="register-password-confirm"
                 aria-describedby="password-confirm" onkeyup="validate_credentials();">
             </div>
-            <span id="valid-password-message"></span>
+            <span id="valid-password-message"></span><br>
+        <label class="input_label" for="ageReq">I confirm I am 13 years or older.</label>
+        <input type="checkbox" id="ageReq" name="ageReq" required><br>
+
+        <label class="input_label" for="tos">I agree to the Terms of Service and Privacy Policy.</label>
+        <input type="checkbox" id="tos" name="tos" required><br>
 
             <div class="modal-footer">
               <button type="submit" class="btn btn-primary" onclick='inject_comment(event, "register")'>Submit</button>
