@@ -32,7 +32,7 @@ window.addEventListener('load', () =>
   // });
 });
 
-let valid_password = true;
+let valid_password = false;
 /**
  * Client-side credential validation
  *
