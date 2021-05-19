@@ -95,6 +95,7 @@ app.use( (req, res, next) => {
   // default to plain-text. send()
   next();
 });
+
 const server = app.listen(port, function () {
   console.log("Listening on port 3000");
 });

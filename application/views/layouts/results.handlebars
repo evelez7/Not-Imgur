@@ -16,14 +16,14 @@
       <h1 class="display-4">Searched for: {{ query }}</h1>
     </div>
   </div>
-  <div class="row row-cols-3 row-fluid">
+  <div class="row row-cols-4 row-fluid">
     {{#each posts}}
     <div class="col-md-4 col-offset-5">
       <a href="/image_post/{{ this.id }}">
-        <div class="card">
+        <div class="card" style="max-width=18rem;">
           <img src="{{ this.image }}" class="card-img-top" />
           <div class="card-body">
-            <h5 class="card-title">{{ this.title }}</h5>
+            <h5 class="card-title text-white">{{ this.title }}</h5>
           </div>
         </div>
       </a>

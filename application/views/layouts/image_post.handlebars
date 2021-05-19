@@ -16,13 +16,13 @@
   <div class="container">
     <div class="row">
       {{!-- <div class="col-xs-6"> --}}
-        <div class="col-md-6 card text-center">
+        <div class="col-md-6 card">
           <div class="card-body">
-            <h1 class="card-title"> {{ post.title }}</h1>
+            <h1 class="card-title text-center"> {{ post.title }}</h1>
           </div>
-          <img class="img-center" src="/{{ post.image }}">
+          <img class="img-center img-fluid" src="/{{ post.image }}">
           <p> {{ post.description }} </p>
-          <p> posted by {{ post.author }} on {{post.date_created}} </p>
+          <p> Posted by {{ post.author }} on {{post.date_created}} </p>
         </div>
         {{!--
       </div> --}}
@@ -31,7 +31,7 @@
         {{#each comments}}
         <div class="card mt-4 text-justify">
           <div class="card-body p-1">
-            <span> By: {{ this.author }}  <small>on {{ this.date_created }}</small> </span><br>
+            <span> By: {{ this.author }} <small>on {{ this.date_created }}</small> </span><br>
             <p> {{ this.comment }} </p>
           </div>
         </div>
@@ -40,8 +40,7 @@
         <form action="/image_post/{{ post.id }}/comment" id="comment-form" method="post"
           onsubmit="check_if_authenticated(event)">
           <div class="container p-3">
-            <label class="form-label">Talk about this post!</label>
-            <textarea class="form-control" id="comment" name="comment" placeholder="Enter a comment..."></textarea>
+            <textarea class="form-control" id="comment" name="comment" placeholder="Enter a comment..." required minlength="4"></textarea>
 
             <button type="submit" id="comment-submit" class="btn btn-primary">Submit</button>
           </div>
@@ -65,7 +64,7 @@
         <div class="modal-footer">
           <button class="btn btn-primary" data-bs-target="#login-modal" data-bs-toggle="modal"
             data-bs-dismiss="modal">Login</button>
-         <a href="/register"> <button class="btn btn-secondary" >Go Register</button></a>
+          <a href="/register"> <button class="btn btn-secondary">Go Register</button></a>
         </div>
       </div>
     </div>
@@ -83,63 +82,19 @@
           <div class="modal-body">
             <div class="mb-3">
               <label for="login-email" class="form-label">Email</label>
-              <input type="text" name="email" class="form-control" id="login-email" aria-describedby="email">
+              <input type="text" name="email" class="form-control" id="login-email" aria-describedby="email" required>
             </div>
-          </div>
 
-          <div class="mb-3">
-            <label for="login-password" class="form-label">Password</label>
-            <input type="text" name="password" class="form-control" id="login-password" aria-describedby="password">
-          </div>
+            <div class="mb-3">
+              <label for="login-password" class="form-label">Password</label>
+              <input name="password" class="form-control" id="login-password" type="password"
+                aria-describedby="password" required minlength="8">
+            </div>
 
+          </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary" onclick='inject_comment(event, "login")'>Submit</button>
           </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="register-modal" tabindex="-1" aria-labelledby="register-modal-label" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="login-modal-title">Register</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form id="register-form" action="/register" method="post" onsubmit="registration_submit(event)">
-          <div class="modal-body">
-            <div class="mb-3">
-              <label for="register-name" class="form-label">Name</label>
-              <input type="text" name="username" class="form-control" id="register-name" aria-describedby="name">
-            </div>
-
-            <div class="mb-3">
-              <label for="register-email" class="form-label">Email Address</label>
-              <input type="email" name="email" class="form-control" id="register-email" aria-describedby="email">
-            </div>
-
-            <div class="mb-3">
-              <label for="register-password" class="form-label">Password</label>
-              <input type="password" name="password" class="form-control" id="register-password"
-                aria-describedby="password" onkeyup="validate_credentials();">
-            </div>
-
-            <div class="mb-3">
-              <label for="register-password-confirm" class="form-label">Confirm Password</label>
-              <input type="password" name="confirm_password" class="form-control" id="register-password-confirm"
-                aria-describedby="password-confirm" onkeyup="validate_credentials();">
-            </div>
-            <span id="valid-password-message"></span><br>
-            <label class="input_label" for="ageReq">I confirm I am 13 years or older.</label>
-            <input type="checkbox" id="ageReq" name="ageReq" required><br>
-
-            <label class="input_label" for="tos">I agree to the Terms of Service and Privacy Policy.</label>
-            <input type="checkbox" id="tos" name="tos" required><br>
-
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-primary" onclick='inject_comment(event, "register")'>Submit</button>
-            </div>
         </form>
       </div>
     </div>

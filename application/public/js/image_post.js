@@ -18,6 +18,7 @@ function inject_comment(event, form_name)
   new_comment.setAttribute('name', "comment");
   new_comment.setAttribute('type', "text");
   new_comment.setAttribute('value', document.getElementById("comment").value);
+  new_comment.style.visibility="hidden";
   form.appendChild(new_comment);
 
   let new_id = document.createElement("input");

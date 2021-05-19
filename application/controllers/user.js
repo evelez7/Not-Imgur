@@ -22,8 +22,8 @@ module.exports = {
     // format Date object into MySQL DATE_TIME
     let date_created = new Date(new Date().toISOString()).toJSON().slice(0,19).replace('T', ' ');
 
-    salt="this is a bad salt";
-    hash = crypto.pbkdf2Sync(req.body.password,salt, 1000, 64, `sha512`).toString('hex');
+    let new_salt = crypto.randomBytes(16).toString('hex');
+    hash = crypto.pbkdf2Sync(req.body.password, new_salt, 1000, 64, `sha512`).toString('hex');
     // user table is of the form id username email password date_created
     db.query('INSERT INTO user SET ?',
       {
@@ -31,7 +31,8 @@ module.exports = {
         name : req.body.username,
         password: hash,
         email: req.body.email,
-        date_created: date_created
+        date_created: date_created,
+        salt: new_salt
       },
       (err, result) => {
         if (err)
