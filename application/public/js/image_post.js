@@ -1,36 +1,34 @@
+let modal_html = document.getElementById("auth-modal");
+let modal = new bootstrap.Modal(modal_html);
 
-window.addEventListener('load', () =>
+function check_if_authenticated(event)
 {
-  let current_nav_item = document.getElementById('register-nav');
-  current_nav_item.classList.add('active');
+  console.log("check: ", logged_in);
+  if (logged_in === "false")
+  {
+    modal.show();
+    event.preventDefault();
+  }
+}
 
-  $("#password")
-    .popover({
-      html: true,
-      title: 'Password Requirements',
-      placement: 'right',
-      content: () =>
-      {
-        return $("#password-reqs").html();
-      }
-    })
-    .blur(function ()
-    {
-      $(this).popover('hide');
-    });
+function inject_comment(event, form_name)
+{
+  let form = document.getElementById(form_name + "-form");
+  let new_comment = document.createElement("input");
+  new_comment.setAttribute('name', "comment");
+  new_comment.setAttribute('type', "text");
+  new_comment.setAttribute('value', document.getElementById("comment").value);
+  new_comment.style.visibility="hidden";
+  form.appendChild(new_comment);
 
-  // $("#confirm-password").popover({
-  //   html: true,
-  //   placement: 'right',
-  //   content: () =>
-  //   {
-  //     return $("#password-matches").html();
-  //   }
-  // }).blur(() =>
-  // {
-  //   $(this).popover('hide');
-  // });
-});
+  let new_id = document.createElement("input");
+  new_id.setAttribute('name', "postId");
+  new_id.setAttribute('type', "text");
+  new_id.setAttribute('value', post_Id);
+  new_id.style.visibility="hidden";
+  form.appendChild(new_id);
+  return;
+}
 
 let valid_password = false;
 /**
@@ -40,11 +38,11 @@ let valid_password = false;
  */
 function validate_credentials()
 {
-  let username = document.getElementById('username').value;
-  let password = document.getElementById('password').value;
+  let username = document.getElementById('register-name').value;
+  let password = document.getElementById('register-password').value;
   // check that passwords match
-  if (document.getElementById('password').value == document.getElementById('confirm-password').value) {
-    let message_span = document.getElementById("valid_password_message");
+  if (document.getElementById('register-password').value == document.getElementById('register-password-confirm').value) {
+    let message_span = document.getElementById("valid-password-message");
 
     // $('#password-matches-field').text("Passwords match ");
     // $('#password-matches-field').css("color", "green");
@@ -70,8 +68,8 @@ function validate_credentials()
 
     // $('#password-matches-field').text("Passwords not matching");
     // $('#password-matches-field').css("color", "red");
-    document.getElementById('valid_password_message').style.color = 'red';
-    document.getElementById('valid_password_message').innerHTML = "Passwords not matching";
+    document.getElementById('valid-password-message').style.color = 'red';
+    document.getElementById('valid-password-message').innerHTML = "Passwords not matching";
   }
 }
 

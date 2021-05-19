@@ -1,15 +1,109 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="public/css/common.css">
-        <title>Image Post</title>
-    </head>
-    <body id="image_page">
-      {{> (which_navbar) }}
-        <div class="image_post">
-            <h3>{{ post.title }}</h3>
-            <h3>{{ post.description }}</h3>
-            <h3> {{ post.image }}</h3>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="/public/css/image_post.css">
+  <script>
+    let logged_in = "{{ logged_in }}";
+    let post_Id = "{{ post.id }}";
+  </script>
+  {{> bootstrap_css }}
+  <title>Image Post</title>
+</head>
+
+<body id="image_post_body">
+  {{> (which_navbar) }}
+  <div class="container">
+    <div class="row">
+      {{!-- <div class="col-xs-6"> --}}
+        <div class="col-md-6 card">
+          <div class="card-body">
+            <h1 class="card-title text-center"> {{ post.title }}</h1>
+          </div>
+          <img class="img-center img-fluid" src="/{{ post.image }}">
+          <p> {{ post.description }} </p>
+          <p> Posted by {{ post.author }} on {{post.date_created}} </p>
         </div>
-    </body>
+        {{!--
+      </div> --}}
+
+      <div class="col-md-6">
+        {{#each comments}}
+        <div class="card mt-4 text-justify">
+          <div class="card-body p-1">
+            <span> By: {{ this.author }} <small>on {{ this.date_created }}</small> </span><br>
+            <p> {{ this.comment }} </p>
+          </div>
+        </div>
+        {{/each}}
+
+        <form action="/image_post/{{ post.id }}/comment" id="comment-form" method="post"
+          onsubmit="check_if_authenticated(event)">
+          <div class="container p-3">
+            <textarea class="form-control" id="comment" name="comment" placeholder="Enter a comment..." required minlength="4"></textarea>
+
+            <button type="submit" id="comment-submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div> {{!-- end row div --}}
+  </div> {{!-- end container div --}}
+
+  <div class="modal fade" id="auth-modal" tabindex="-1" aria-labelledby="auth-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="auth-modal-label">You are not logged in!</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          Please login to submit your comment! Or go register first!
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-primary" data-bs-target="#login-modal" data-bs-toggle="modal"
+            data-bs-dismiss="modal">Login</button>
+          <a href="/register"> <button class="btn btn-secondary">Go Register</button></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="login-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="login-modal-title">Login</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <form id="login-form" action="/login" method="post">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="login-email" class="form-label">Email</label>
+              <input type="text" name="email" class="form-control" id="login-email" aria-describedby="email" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="login-password" class="form-label">Password</label>
+              <input name="password" class="form-control" id="login-password" type="password"
+                aria-describedby="password" required minlength="8">
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" onclick='inject_comment(event, "login")'>Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous"></script>
+  <script src="/public/js/image_post.js"></script>
+</body>
+
 </html>

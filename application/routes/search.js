@@ -1,19 +1,13 @@
 const express = require('express');
-const post = require("../controllers/post.js");
-const passport = require("../middleware/passport.js");
+const post = require('../controllers/post.js');
 let router = express.Router();
 
-/**
- * GET router for home page (index)
- *
- * Will ask for images to load
- */
-router.get('/', post.retrieve,
-function(req, res, next) {
+router.post('/', post.retrieve_search, (req, res, next) => {
   res.render('main', {
-    layout: 'index',
+    layout: 'results',
     // posts: JSON.parse(JSON.stringify(req.posts).replace(/&quot;/g,'"')),
     posts: req.posts,
+    query: req.body.search_term,
     which_navbar: () => {
       if (req.user)
       {

@@ -1,25 +1,32 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="public/css/common.css">
-        <title>
-            Login Page
-        </title>
-    </head>
+<head>
+  <link rel="stylesheet" type="text/css" href="/public/css/login.css">
+  {{> bootstrap_css }}
+  <title>
+    Login Page
+  </title>
+</head>
 
-    <body id="login_page">
-      {{> navbar_unauthenticated }}
-    <div class="form_box">
-        <h3>Login</h3>
-
+<body id="login_page">
+  {{> navbar_unauthenticated }}
+<div class="card mx-auto w-50 p-3">
+  <div class="card-body">
     <form name="login_form" method="post" action="/login/submit">
-        <label>Username</label>
-        <input placeholder="Enter Username..." class="input_field" name="username" required type="text" value=""><br>
+      <h3>Login</h3>
+      <label class="form-label">Email</label>
+      <input placeholder="Enter Username..." class="form-control" name="email" type="email" required type="text" value=""><br>
 
-        <label>Password</label>
-        <input placeholder="Enter Password..." class="input_field" name="password" type="password" value=""><br>
-        <input type="submit" class="submit" value="submit">
+      <label class="form-label">Password</label>
+      <input placeholder="Enter Password..." class="form-control" name="password" required type="password" value="" minlength="8"><br>
+      <button type="submit" id="comment-submit" class="btn btn-primary" >Submit</button>
     </form>
     </div>
-    </body>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous"></script>
+  <script src="/public/js/login.js"></script>
+</body>
+
 </html>

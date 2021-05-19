@@ -8,6 +8,7 @@ const db_connection = mysql.createConnection({
     database: 'csc317db',
     waitForConnections: true,
     connectionLimit: 15,
+    multipleStatements: true,
     queueLimit: 0
 });
 

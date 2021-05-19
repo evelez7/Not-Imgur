@@ -1,0 +1,39 @@
+img {
+  display: block;
+  max-width: 50%;
+  height: auto;
+}
+
+.card {
+  margin: 0 auto;
+  float: none;
+  margin-bottom: 10px;
+}
+
+.img-center {
+  margin: 0 auto;
+}
+
+.image_page {
+  background-color: red;
+}
+
+.comment {
+  border: 1px solid rgba(16, 46, 46, 1);
+  background-color: rgba(16, 46, 46, 0.973);
+  border-radius: 5px;
+  padding-left: 40px;
+  padding-right: 30px;
+  padding-top: 10px;
+  color: white;
+}
+
+.comment h4,
+.comment span
+{
+  display: inline;
+}
+
+#image_post_body {
+  background-color: #000000;
+}

@@ -13,6 +13,8 @@
 const passport = require("passport");
 let passport_local = require("passport-local");
 const users = require("../controllers/user.js");
+const crypto = require('crypto');
+const { body, checkValidation, validationResult } = require("express-validator");
 
 /**
  * Configure passport to use the default local strategy.
@@ -24,16 +26,29 @@ const users = require("../controllers/user.js");
  */
 passport.use(new passport_local.Strategy(
   {
-    passReqToCallback: true
+    passReqToCallback: true,
+    usernameField: 'email'
   },
+  // the email is the username
   (req, username, password, done) => {
-    users.fetch(username, (err, user) => {
-      if (err) { return done(err) }; // fail if error exists
-      if (!user) { return done(null, false, {message: "incorrect username"}); } // fail if user was unable to be found
+    // use express-validator to validate all calls for LOGIN, must handle differently for registration
+    const validation_errors = validationResult(req);
+    if (!validation_errors.isEmpty())
+    {
+      console.log("Bad validation!");
+      return done(null, false, {message: "Bad info"});
+    }
 
-      if (user.password != password)
+    // get user info from db and define a callback for .authentication calls
+    users.fetch_email(username, (err, user) => {
+      if (err) { return done(err, {message: "error!"}) }; // fail if error exists
+      if (!user) { console.log("bad username!"); return done(null, false, {message: "incorrect username"}); } // fail if user was unable to be found
+
+      let hashed_password = crypto.pbkdf2Sync(password, user.salt, 1000, 64, `sha512`).toString('hex');
+      if (user.password != hashed_password)
       {
-        return done(null, false, {message: "Incorrect Password"}); // fail if passwords dont match
+        console.log("bad password!");
+        return  done(null, false, {message: "Incorrect Password"}); // fail if passwords dont match
       }
 
       return done(null, user);
@@ -41,11 +56,11 @@ passport.use(new passport_local.Strategy(
 }));
 
 passport.serializeUser( (user, done) => {
-  done(null, user.username);
+  done(null, user.email);
 });
 
 passport.deserializeUser( (username, done) => {
-  users.fetch(username, (err, user) => {
+  users.fetch_email(username, (err, user) => {
     done(null, user);
   });
 });

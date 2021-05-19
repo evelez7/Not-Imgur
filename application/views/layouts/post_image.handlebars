@@ -1,30 +1,37 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="public/css/common.css">
-        <title>
-            Post Image Page
-        </title>
-    </head>
-    <body id="post_page">
-      {{> (which_navbar) }}
-    <form class="form_box">
-        <h3>Posting</h3>
-        <div class="form_inputs">
 
-            <label>Please input a title</label>
-            <input placeholder="Title..." class="input_field" type="text"><br>
+<head>
+  <link rel="stylesheet" type="text/css" href="/public/css/post_image.css">
+  {{> bootstrap_css }}
+  <title>
+    Post Image Page
+  </title>
+</head>
 
-            <label>Please input a description.</label>
-            <input placeholder="Description..." class="input_field" type="text"><br>
+<body id="post_image_body">
+  {{> (which_navbar) }}
+  <div class="card mx-auto w-75">
+    <div class="card-body">
+  <form method="post" enctype="multipart/form-data" action="/post_image/submit">
+    <h3>Make a post!</h3>
 
-            <label>Please select a file to upload.</label>
-            <input type="file" id="imageInput" name="imageInput" accept="image/*"><br>
+      <label class="form-label">Please input a title</label>
+      <input class="form-control" placeholder="Title..." name="title" class="input_field" required type="text"><br>
 
-            <label for="tos">I agree to the Acceptable Use Policy for media.</label>
-            <input type="checkbox" id="tos" name="tos"><br>
-        </div>
-            <input type="submit" class="submit" value="submit">
-    </form>
-    </body>
+      <label class="form-label">Please input a description.</label>
+      <input class="form-control" placeholder="Description..." name="description" class="input_field" required type="text"><br>
+
+      <label class="form-label">Please select a file to upload.</label>
+      <input class="form-control" type="file" id="imageInput" name="image" required accept="image/*"><br>
+
+      <label for="tos">I agree to the Acceptable Use Policy for media.</label>
+      <input type="checkbox" id="tos" name="tos" required><br>
+      <button type="submit" id="comment-submit" class="btn btn-primary" >Submit</button>
+  </form></div></div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous"></script>
+</body>
+
 </html>

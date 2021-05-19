@@ -3,7 +3,9 @@
  *
  * The controller that queries, writes, and reads information from the database instance
  */
+const { v4: uuidv4 } = require('uuid');
 const db = require('../models/database.js');
+const crypto = require('crypto');
 
 module.exports = {
   /**
@@ -16,12 +18,28 @@ module.exports = {
    */
   register : function (req, res, next)
   {
-    // user table is of the form USER PW EMAIL
-    db.query('INSERT INTO users SET ?', {username : req.body.username, password: req.body.password, email: req.body.email}, (err, result) => {
-      if (err)
+    let new_id = uuidv4();
+    // format Date object into MySQL DATE_TIME
+    let date_created = new Date(new Date().toISOString()).toJSON().slice(0,19).replace('T', ' ');
+
+    let new_salt = crypto.randomBytes(16).toString('hex');
+    hash = crypto.pbkdf2Sync(req.body.password, new_salt, 1000, 64, `sha512`).toString('hex');
+    // user table is of the form id username email password date_created
+    db.query('INSERT INTO user SET ?',
       {
-        console.log("ERROR: User registration");
-      }
+        id: new_id,
+        name : req.body.username,
+        password: hash,
+        email: req.body.email,
+        date_created: date_created,
+        salt: new_salt
+      },
+      (err, result) => {
+        if (err)
+        {
+          console.log("ERROR: User registration");
+          console.log(err);
+        }
     });
     next();
   },
@@ -36,21 +54,41 @@ module.exports = {
    * If successful, Passport will verify and begin a session
    * @param callback a callback function given back to Passport
    */
-  login: function(username, callback)
+  login: function(username, done)
   {
-    db.query('SELECT * from users WHERE username = ?', username, (err, result) => {
-      if (err) { return callback(null, null) };
-      return callback(null, result[0]);
+    db.query('SELECT * from user WHERE name = ?', username, (err, result) => {
+      if (err) { return done(null, null) };
+      return done(null, result[0]);
     });
   },
 
-  fetch: function(username, done)
+  fetch_username: function(username, done)
   {
-    db.query('SELECT * from users WHERE username = ?', username, (err, result) =>
+    db.query('SELECT * from user WHERE name = ?', username, (err, result) =>
     {
       if (err) {return done(err, null); }
       if (result.length === 0) { return done(null, null); }
       if (result[0].username != username) { return done(null, null); }
+      return done(null, result[0]);
+    });
+  },
+
+  fetch_email: function(email, done)
+  {
+    db.query('SELECT * from user WHERE email = ?', email, (error, result) =>
+    {
+      if (error) { return done(error, null); }
+      if (result.length === 0) { return done(null, null); }
+      return done(null, result[0]);
+    });
+  },
+
+  fetch_id: function(id, done)
+  {
+    db.query('SELECT * from user WHERE id = ?', id, (error, result) =>
+    {
+      if (error) { return done(error, null); }
+      if (result.length === 0) { return done(null, null); }
       return done(null, result[0]);
     });
   }

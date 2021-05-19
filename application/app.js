@@ -9,6 +9,7 @@ const flash = require("connect-flash");
 // Passport functionality is in middleware/passport
 const passport = require("./middleware/passport.js");
 
+
 const port = 3000;
 
 let app = express();
@@ -29,6 +30,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use("/public", express.static(path.join(__dirname, 'public')));
+app.use("/upload", express.static(path.join(__dirname, 'upload')));
 
 // initialize routes for pages
 // TODO: remove database connection from routes, they should only call passport when needed
@@ -37,7 +39,8 @@ const index_router = require('./routes/index'),
   registration_router = require('./routes/register'),
   image_post_router = require('./routes/image_post'),
   login_router = require('./routes/login'),
-  logout_router = require('./routes/logout');
+  logout_router = require('./routes/logout'),
+  search_router = require('./routes/search');
 
 // initialize endpoints
 app.use('/', index_router);
@@ -46,6 +49,7 @@ app.use('/register', registration_router);
 app.use('/image_post', image_post_router);
 app.use('/login', login_router);
 app.use('/logout', logout_router);
+app.use('/search', search_router);
 
 // initialize template engine`
 app.set('view engine', 'handlebars');
@@ -62,6 +66,34 @@ app.use((req, res, next) => {
         return res.status(200).json({});
     }
     next();
+});
+
+app.use( (req, res, next) => {
+  res.status(400);
+  if (req.accepts('html')) {
+    res.render('main', {
+      layout: '404',
+      which_navbar: () =>
+      {
+        if (req.user) {
+          return "navbar_authenticated";
+        } else {
+          return "navbar_unauthenticated";
+        }
+      },
+      message: "404, not found! Go somewhere else!"
+    });
+    return;
+  }
+
+  // respond with json
+  if (req.accepts('json')) {
+    res.json({ error: 'Not found' });
+    return;
+  }
+  res.type('txt').send('Not found');
+  // default to plain-text. send()
+  next();
 });
 
 const server = app.listen(port, function () {
