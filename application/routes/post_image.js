@@ -14,6 +14,7 @@ const fs = require('fs');
 const { v1: uuidv1 } = require('uuid');
 let router = express.Router();
 const { body, validationResult, oneOf } = require('express-validator');
+const { error } = require('console');
 
 /**
  * Initialize multer for recieving images
@@ -31,7 +32,6 @@ const uploader = multer({
 router.get('/', function (req, res, next)
 {
   if (!req.user) { res.redirect(302, '/'); };
-  console.log("user: ",req.user);
   res.render('main',
     {
       layout: 'post_image',
@@ -50,8 +50,8 @@ router.get('/', function (req, res, next)
  * POST  /login/submit
  */
 router.post('/submit',
-  body("title").trim().isEmpty().isLength({min: 8}).bail(),
-  body("description").trim().isEmpty().isLength({min: 4}).bail(),
+  body("title").trim(),
+  body("description").trim(),
   uploader.single("image"),
 
   (req, res, next) =>
@@ -60,7 +60,7 @@ router.post('/submit',
     if (!validation_errors.isEmpty())
     {
       console.log("Bad validation!");
-      return done(null, false, {message: "Bad info"});
+      res.redirect(302, '/');
     }
     if (!req.user) { // should not be allowed to submit if not logged in
       res.redirect(302, '/');
