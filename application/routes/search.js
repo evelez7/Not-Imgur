@@ -1,7 +1,17 @@
+/**
+ * search.js
+ *
+ * Routes for the /search endpoint
+ */
 const express = require('express');
 const post = require('../controllers/post.js');
 let router = express.Router();
 
+/**
+ * POST search/
+ *
+ * Middleware post.retrieve_search
+ */
 router.post('/', post.retrieve_search, (req, res, next) => {
   res.render('main', {
     layout: 'results',

@@ -22,7 +22,7 @@ const { body, checkValidation, validationResult } = require("express-validator")
  * A verify callback must be specified as an argument to the Strategy
  * Must pass name 'local' to passport.authenticate
  *
- * NOTE: authentication currently does not require, or take into consideration, email
+ * Email is used for login, username is purely for display
  */
 passport.use(new passport_local.Strategy(
   {
@@ -55,10 +55,16 @@ passport.use(new passport_local.Strategy(
     });
 }));
 
+/**
+ * Passport.js required function for transferring session between requests
+ */
 passport.serializeUser( (user, done) => {
   done(null, user.email);
 });
 
+/**
+ * Passport.js required function for transferring session between requests
+ */
 passport.deserializeUser( (username, done) => {
   users.fetch_email(username, (err, user) => {
     done(null, user);

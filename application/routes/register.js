@@ -1,3 +1,8 @@
+/**
+ * register.js
+ *
+ * Routes for the /register endpoint
+ */
 var express = require('express');
 var router = express.Router();
 const comment = require("../controllers/comment.js");
@@ -5,10 +10,13 @@ const passport = require('passport');
 const { body, validationResult } = require('express-validator');
 const user = require('../controllers/user.js');
 
-/* GET home page. */
+/**
+ * GET register/
+ */
 router.get('/', function (req, res, next)
 {
   if (req.query.comment) {
+    // currently unused as registering from a post is not supported
     comment_temp = req.query.comment;
     res.render('main', { layout: 'register' });
   } else {
@@ -19,6 +27,9 @@ router.get('/', function (req, res, next)
   }
 });
 
+/**
+ * POST register/submit
+ */
 router.post('/submit',
   body('email').isEmail(),
   body('password').matches('^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[/\*-+!@#\$\^&]).*').withMessage('Must match regex!').custom((value, { req }) =>

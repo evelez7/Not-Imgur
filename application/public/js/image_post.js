@@ -1,6 +1,7 @@
 let modal_html = document.getElementById("auth-modal");
 let modal = new bootstrap.Modal(modal_html);
 
+// checks the logged_in var passed from the route to show modal or not
 function check_if_authenticated(event)
 {
   console.log("check: ", logged_in);
@@ -11,6 +12,13 @@ function check_if_authenticated(event)
   }
 }
 
+/**
+ * Inject a comment to the form to take it along with the login request
+ *
+ * You are allowed to submit a comment if you decide to log in
+ * The comment itself is a different form, so take the comment from that form and
+ * stick it into the login form as an <input>
+ */
 function inject_comment(event, form_name)
 {
   let form = document.getElementById(form_name + "-form");

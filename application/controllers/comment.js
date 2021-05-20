@@ -1,10 +1,20 @@
 /**
+ * comment.js
  *
+ * Queries, writes, and reads information for comments in database
  */
 const db = require("../models/database.js");
 const { nanoid } = require("nanoid");
 
 module.exports = {
+  /**
+   * comment.submit
+   *
+   * Creates a new record in the comment table
+   *
+   * Requires to create a comment id
+   * authorId and postId are foreign keys for user, post tables respectively
+   */
   submit: (comment, postId, userId) =>
   {
     let new_id = nanoid();
@@ -15,6 +25,7 @@ module.exports = {
       postId: postId,
       authorId: userId,
       likes: 0,
+      // mysql datetimes are complicated, thank you stack overflow
       date_created: new Date(new Date().toISOString()).toJSON().slice(0,19).replace('T', ' ')
     }, (err, result) => {
       if (err) console.log(err);
@@ -23,7 +34,6 @@ module.exports = {
 
   submit_yes: (req, res, next) =>
   {
-    console.log("in submit, ", req.id);
     let new_id = nanoid();
     db.query("INSERT INTO comment SET ?",
     {
@@ -39,13 +49,16 @@ module.exports = {
     });
   },
 
-  retrieve_single: (req, res, next) =>
-  {
-  },
-
+  /**
+   * comment.retrieve
+   *
+   * Fetches a single comment record from the database based on the id of a post
+   *
+   * The id is carried within the request parameter
+   * This is only called from routes/image_post
+   */
   retrieve: (req, res, next) =>
   {
-    let user_id;
     db.query("SELECT * from comment WHERE postID = ?", req.post.id, (err, result) =>
     {
       if (err) console.log(err);

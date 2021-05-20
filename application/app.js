@@ -1,3 +1,10 @@
+/**
+ * app.js
+ *
+ * Defines the app itself, as well as needed middleware and services
+ *
+ * Grand central station of the app
+ */
 // initialize and import npm services
 const express = require('express');
 const path = require('path');
@@ -68,6 +75,7 @@ app.use((req, res, next) => {
     next();
 });
 
+// this middleware is for capturing requests for routes that do not exist (404)
 app.use( (req, res, next) => {
   res.status(400);
   if (req.accepts('html')) {
@@ -97,7 +105,7 @@ app.use( (req, res, next) => {
 });
 
 const server = app.listen(port, function () {
-  console.log("Listening on port 3000");
+  console.log("Listening on port ", port);
 });
 
 // Make sure to kill process to avoid problems on restart

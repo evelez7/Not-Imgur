@@ -7,6 +7,13 @@ const db = require('../models/database.js');
 const { nanoid } = require('nanoid');
 
 module.exports = {
+  /**
+   * post.post
+   *
+   * Create an id and submit post record to db
+   *
+   * TODO: Probably should rename this to submit
+   */
   post : (req, target_path, done) =>
   {
     // post records are of the form id userID title description image date_created
@@ -30,6 +37,8 @@ module.exports = {
   },
 
   /**
+   * post.retrieve_single
+   *
    * Retrieves a post record from db according to the id of the post requested
    */
   retrieve_single : (req, res, next) =>
@@ -45,6 +54,15 @@ module.exports = {
     });
   },
 
+  /**
+   * post.retrieve
+   *
+   * Retrieve more than one post
+   *
+   * This is called from index route
+   *
+   * TODO: dynamic number of posts, specify quant
+   */
   retrieve: (req, res, next) =>
   {
     db.query('SELECT * from post LIMIT ?',  20,
@@ -57,6 +75,13 @@ module.exports = {
     });
   },
 
+  /**
+   * post.retrieve_search
+   *
+   * Retrieve a certain number of records where the title matches the search term
+   *
+   * TODO: dynamic quantity of records
+   */
   retrieve_search: (req, res, next) =>
   {
     db.query(`SELECT * from post WHERE title LIKE '%` + req.body.search_term  +  `%'`, [20], (error, result) => {

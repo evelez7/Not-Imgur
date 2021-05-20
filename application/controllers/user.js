@@ -1,7 +1,7 @@
 /**
  * user.js
  *
- * The controller that queries, writes, and reads information from the database instance
+ * Queries, writes, and reads information for posts in database
  */
 const { v4: uuidv4 } = require('uuid');
 const db = require('../models/database.js');
@@ -62,6 +62,11 @@ module.exports = {
     });
   },
 
+  /**
+   * user.fetch_username
+   *
+   * Retrieve a record based on the username
+   */
   fetch_username: function(username, done)
   {
     db.query('SELECT * from user WHERE name = ?', username, (err, result) =>
@@ -73,6 +78,11 @@ module.exports = {
     });
   },
 
+  /**
+   * user.fetch_email
+   *
+   * Retrieve a record based on the email
+   */
   fetch_email: function(email, done)
   {
     db.query('SELECT * from user WHERE email = ?', email, (error, result) =>
@@ -83,6 +93,11 @@ module.exports = {
     });
   },
 
+  /**
+   * user.fetch_id
+   *
+   * Retrieve a record based on the id
+   */
   fetch_id: function(id, done)
   {
     db.query('SELECT * from user WHERE id = ?', id, (error, result) =>

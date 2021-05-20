@@ -1,7 +1,7 @@
 /**
- * router/login.js
+ * login.js
  *
- * Contains all route information for login.js
+ * Routes for the /login endpoint
  *
  * NOTE: email/password are checked here, but bad validation
  * is not acted upon until req is passed to Passport in the Strategy declaration
@@ -13,7 +13,12 @@ var router = express.Router();
 const passport = require("../middleware/passport.js");
 const { body, validationResult, oneOf } = require('express-validator');
 
-/* GET home page. */
+/**
+ * GET login/
+ *
+ * Render the login page
+ * Redirect if already logged in
+ */
 router.get('/', function (req, res, next)
 {
   if (req.user) { res.redirect(302, '/') };
@@ -23,7 +28,7 @@ router.get('/', function (req, res, next)
 });
 
 /**
- * Router for the submission of the login form
+ * POST login/submit
  *
  * Calls the authenticate mdidleware from Passport
  */
@@ -38,6 +43,11 @@ router.post('/submit',
     })
 );
 
+/**
+ * POST login/
+ *
+ * This is the route called from the image_post route when logging in to post a comment
+ */
 router.post('/',
   body('password').matches("^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[/\*-+!@#\$\^&]).*"),
   body('email').isEmail(),

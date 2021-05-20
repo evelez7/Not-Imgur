@@ -25,7 +25,7 @@ const uploader = multer({
 });
 
 /**
- * GET request for /image_post
+ * GET /image_post
  */
 router.get('/', function (req, res, next)
 {
@@ -46,7 +46,7 @@ router.get('/', function (req, res, next)
 });
 
 /**
- * POST request for /login/submit
+ * POST  /login/submit
  */
 router.post('/submit',
   uploader.single("image"),
