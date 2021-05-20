@@ -13,6 +13,7 @@ const path = require('path');
 const fs = require('fs');
 const { v1: uuidv1 } = require('uuid');
 let router = express.Router();
+const { body, validationResult, oneOf } = require('express-validator');
 
 /**
  * Initialize multer for recieving images
@@ -49,10 +50,18 @@ router.get('/', function (req, res, next)
  * POST  /login/submit
  */
 router.post('/submit',
+  body("title").trim().isEmpty().isLength({min: 8}).bail(),
+  body("description").trim().isEmpty().isLength({min: 4}).bail(),
   uploader.single("image"),
 
   (req, res, next) =>
   {
+    const validation_errors = validationResult(req);
+    if (!validation_errors.isEmpty())
+    {
+      console.log("Bad validation!");
+      return done(null, false, {message: "Bad info"});
+    }
     if (!req.user) { // should not be allowed to submit if not logged in
       res.redirect(302, '/');
       // should redirect to an unauthorized page

@@ -34,7 +34,7 @@ router.get('/', function (req, res, next)
  */
 router.post('/submit',
   body('password').matches("^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[/\*-+!@#\$\^&]).*"),
-  body('email').isEmail(),
+  body('email').isEmail().normalizeEmail(),
   passport.authenticate('local',
     {
       failureRedirect: '/login',
