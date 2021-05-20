@@ -5,6 +5,7 @@
  */
 const db = require('../models/database.js');
 const { nanoid } = require('nanoid');
+const { validationResult } = require('express-validator');
 
 module.exports = {
   /**
@@ -84,11 +85,17 @@ module.exports = {
    */
   retrieve_search: (req, res, next) =>
   {
+    console.log(req.body.search_term);
+    const validation_errors = validationResult(req);
+    if (!validation_errors.isEmpty())
+    {
+      console.log("Bad validation!");
+      return done(null, false, {message: "Bad info"});
+    }
     db.query(`SELECT * from post WHERE title LIKE '%` + req.body.search_term  +  `%'`, [20], (error, result) => {
       if (error) console.log(error);
       if (!result) console.log("no result");
       req.posts = result;
-      console.log(result);
       next();
     });
   }

@@ -6,13 +6,17 @@
 const express = require('express');
 const post = require('../controllers/post.js');
 let router = express.Router();
+const { body } = require('express-validator');
 
 /**
  * POST search/
  *
  * Middleware post.retrieve_search
  */
-router.post('/', post.retrieve_search, (req, res, next) => {
+router.post('/',
+  // you are allowed to search for nothing, which is everything
+  body("search_term").trim().isLength({min: 1}),
+  post.retrieve_search, (req, res, next) => {
   res.render('main', {
     layout: 'results',
     // posts: JSON.parse(JSON.stringify(req.posts).replace(/&quot;/g,'"')),
