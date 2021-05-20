@@ -26,7 +26,7 @@ Please follow the instructions below and fill in the information requested when 
 ### To populate database
 Please see the config directory README for more information on the database details assumed by the app
 1. Navigate to source folder (in the repo, 'cd application')
-2. 2. run 'npm run init' 
+2. run 'npm run init' 
 
 ## Run Instructions
 1. Navigate to application source (in the repository, 'cd application') through the command line
