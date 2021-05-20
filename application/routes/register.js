@@ -31,7 +31,7 @@ router.get('/', function (req, res, next)
  * POST register/submit
  */
 router.post('/submit',
-  body("username").trim(),
+  body("username").trim().isLength({min: 8}),
   body('email').isEmail().normalizeEmail(),
   body('password').matches('^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[/\*-+!@#\$\^&]).*').withMessage('Must match regex!').custom((value, { req }) =>
   {
